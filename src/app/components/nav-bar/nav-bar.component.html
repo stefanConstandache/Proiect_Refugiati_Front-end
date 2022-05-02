@@ -1,0 +1,4 @@
+<mat-toolbar color="primary" style="justify-content: space-between;">Welcome to HelpRef
+    <app-login-button *ngIf="(auth.isAuthenticated$ | async) == false"></app-login-button>
+    <app-logout-button *ngIf="(auth.isAuthenticated$ | async) == true"></app-logout-button>
+</mat-toolbar>
