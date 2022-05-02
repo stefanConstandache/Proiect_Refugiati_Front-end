@@ -6,8 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Auth0 import
 import { AuthModule } from '@auth0/auth0-angular';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 //Mats import
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -37,7 +35,6 @@ import { LoadingComponent } from './components/loading/loading.component';
       audience: 'http://localhost:8080',
       roleskey: 'http://localhost:8080/roles'
     }),
-    FlexLayoutModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
