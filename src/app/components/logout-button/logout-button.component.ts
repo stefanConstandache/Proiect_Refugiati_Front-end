@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-logout-button',
@@ -8,13 +8,13 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class LogoutButtonComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(private keycloakService: KeycloakService) { }
 
   ngOnInit(): void {
   }
 
   logout() {
-    this.auth.logout();
+    this.keycloakService.logout();
   }
 
 }

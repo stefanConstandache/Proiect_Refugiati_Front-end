@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { initializer } from 'src/utils/app-init';
 
-// Auth0 import
-import { AuthModule } from '@auth0/auth0-angular';
+// Keycloak import
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 //Mats import
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,29 +17,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Components import
 import { AppComponent } from './app.component';
-import { LoginButtonComponent } from './components/login-button/login-button.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
-import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginButtonComponent,
     NavBarComponent,
     LogoutButtonComponent,
-    LoadingComponent
   ],
   imports: [
-    AuthModule.forRoot({
-      domain: 'dev-8lbidwng.us.auth0.com',
-      clientId: 'aml8O9DBSzFzfyYTRaJenFgQj8jlFfqG',
-      audience: 'http://localhost:8080',
-      roleskey: 'http://localhost:8080/roles'
-    }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    KeycloakAngularModule,
 
     // Mats
     MatFormFieldModule,
@@ -46,7 +40,14 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatCardModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      deps: [KeycloakService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
