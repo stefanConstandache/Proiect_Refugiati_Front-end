@@ -17,14 +17,20 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Components import
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { AdminDashboardComponent } from './components/dashboards/admin-dashboard/admin-dashboard.component';
+import { VolunteerDashboardComponent } from './components/dashboards/volunteer-dashboard/volunteer-dashboard.component';
+import { RefugeeDashboardComponent } from './components/dashboards/refugee-dashboard/refugee-dashboard.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
     LogoutButtonComponent,
+    AdminDashboardComponent,
+    VolunteerDashboardComponent,
+    RefugeeDashboardComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
     ActivatedRouteSnapshot,
     Router,
-    RouterStateSnapshot,
 } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
@@ -19,13 +18,10 @@ export class AuthGuard extends KeycloakAuthGuard {
 
     public async isAccessAllowed(
         route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
     ) {
         // Force the user to log in if currently unauthenticated.
         if (!this.authenticated) {
-            await this.keycloak.login({
-                redirectUri: window.location.origin + state.url,
-            });
+            await this.keycloak.login();
         }
 
         // Get the roles required from the route.
@@ -40,9 +36,14 @@ export class AuthGuard extends KeycloakAuthGuard {
         if (requiredRoles.every((role) => this.roles.includes(role))) {
             return true;
         } else {
-            // redirect to error page if the user doesn't have the nessecairy  role to access
-            // we will define this routes in a bit
-            this.router.navigate(['access-denied']);
+            if (this.roles.includes("admin")) {
+                this.router.navigate(['/admin']);
+            } else if (this.roles.includes("volunteer")) {
+                this.router.navigate(['/volunteer']);
+            } else if (this.roles.includes("refugee")) {
+                this.router.navigate(['/refugee']);
+            }
+
             return false;
         }
     }
