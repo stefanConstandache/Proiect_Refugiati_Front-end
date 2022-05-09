@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { initializer } from 'src/utils/app-init';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Keycloak import
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -22,6 +23,12 @@ import { AdminDashboardComponent } from './components/dashboards/admin-dashboard
 import { VolunteerDashboardComponent } from './components/dashboards/volunteer-dashboard/volunteer-dashboard.component';
 import { RefugeeDashboardComponent } from './components/dashboards/refugee-dashboard/refugee-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { RegisterVolunteerComponent } from './components/register-volunteer/register-volunteer.component';
+import { RegisterRefugeeComponent } from './components/register-refugee/register-refugee.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { StatusComponent } from './components/status/status.component';
+import { RequestsComponent } from './components/requests/requests.component';
+import { NewsComponent } from './components/news/news.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +38,12 @@ import { HomeComponent } from './components/home/home.component';
     VolunteerDashboardComponent,
     RefugeeDashboardComponent,
     HomeComponent,
+    RegisterVolunteerComponent,
+    RegisterRefugeeComponent,
+    ProfileComponent,
+    StatusComponent,
+    RequestsComponent,
+    NewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +51,8 @@ import { HomeComponent } from './components/home/home.component';
     BrowserAnimationsModule,
     HttpClientModule,
     KeycloakAngularModule,
+    ReactiveFormsModule,
+    FormsModule,
 
     // Mats
     MatFormFieldModule,

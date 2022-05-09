@@ -5,6 +5,12 @@ import { RefugeeDashboardComponent } from './components/dashboards/refugee-dashb
 import { VolunteerDashboardComponent } from './components/dashboards/volunteer-dashboard/volunteer-dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
+import { NewsComponent } from './components/news/news.component';
+import { RegisterVolunteerComponent } from './components/register-volunteer/register-volunteer.component';
+import { RegisterRefugeeComponent } from './components/register-refugee/register-refugee.component';
+import { RequestsComponent } from './components/requests/requests.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { StatusComponent } from './components/status/status.component';
 
 const routes: Routes = [
   {
@@ -25,21 +31,33 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     // The user need to have this roles to access
     data: { roles: ['admin'] },
-    pathMatch: 'full',
+    children: [
+      { path: 'news', component: NewsComponent },
+      { path: 'register-volunteer', component: RegisterVolunteerComponent },
+      { path: '', redirectTo: 'news', pathMatch: 'full' },
+    ]
   },
   {
     path: 'volunteer',
     component: VolunteerDashboardComponent,
     canActivate: [AuthGuard],
     data: { roles: ['volunteer'] },
-    pathMatch: 'full',
+    children: [
+      { path: 'requests', component: RequestsComponent },
+      { path: 'register-refugee', component: RegisterRefugeeComponent },
+      { path: '', redirectTo: 'requests', pathMatch: 'full' },
+    ]
   },
   {
     path: 'refugee',
     component: RefugeeDashboardComponent,
     canActivate: [AuthGuard],
     data: { roles: ['refugee'] },
-    pathMatch: 'full',
+    children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'status', component: StatusComponent },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+    ]
   },
 ];
 
