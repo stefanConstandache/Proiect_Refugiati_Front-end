@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { initializer } from 'src/utils/app-init';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+// Services
+import { NewsapiserviceService } from './services/newsapiservice.service'
+
 // Keycloak import
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
@@ -68,6 +71,7 @@ import { NewsComponent } from './components/news/news.component';
       deps: [KeycloakService],
       multi: true,
     },
+    NewsapiserviceService,
   ],
   bootstrap: [AppComponent]
 })
