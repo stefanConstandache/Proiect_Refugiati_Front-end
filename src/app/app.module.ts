@@ -18,6 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
 
 // Components import
 import { AppComponent } from './app.component';
@@ -62,7 +68,13 @@ import { NewsComponent } from './components/news/news.component';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatGridListModule,
+    MatIconModule,
   ],
   providers: [
     {

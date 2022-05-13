@@ -1,1 +1,69 @@
-<p>requests works!</p>
+<div class="container-fluid mt-3" style="width: 90%;">
+    <h1 style="text-align: center; font-weight: bolder;">Refugees Requests</h1>
+    <div class="search-div">
+        <mat-form-field class="search-form-field" floatLabel="never">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="requestsList" matSort>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <!button mat-raised-button color="primary" (click)="onRequestAccepted()">Accept
+                    <!button mat-raised-button color="primary" (click)="onRequestRejected()">Reject
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requestStatus">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Request Status</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.requestStatus}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requestType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.requestType}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="userNotes">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>User Notes</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.userNotes}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="telephone">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Telephone</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.telephone}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdOn" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Created on</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.createdOn.toDate() | date: "MMM d yyyy"}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="acceptedBy">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Accepted by</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.acceptedBy}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    Loading data...
+                </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    No data
+                </mat-footer-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':requestsList!=null}"></mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(requestsList!=null && requestsList.data.length==0)}"></mat-footer-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

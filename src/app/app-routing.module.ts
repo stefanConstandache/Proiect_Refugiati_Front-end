@@ -43,9 +43,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['volunteer'] },
     children: [
+      { path: 'news', component: NewsComponent },
       { path: 'requests', component: RequestsComponent },
       { path: 'register-refugee', component: RegisterRefugeeComponent },
-      { path: '', redirectTo: 'requests', pathMatch: 'full' },
+      { path: '', redirectTo: 'news', pathMatch: 'full' },
     ]
   },
   {
@@ -54,9 +55,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['refugee'] },
     children: [
+      { path: 'news', component: NewsComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'status', component: StatusComponent },
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: '', redirectTo: 'news', pathMatch: 'full' },
     ]
   },
 ];
