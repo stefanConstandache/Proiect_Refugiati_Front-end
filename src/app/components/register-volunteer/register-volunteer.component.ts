@@ -26,7 +26,7 @@ export function passwordMatchValidator(): ValidatorFn {
 
 export class RegisterVolunteerComponent implements OnInit {
 
-  tokenUrl = "http://localhost:8180/auth/realms/master/protocol/openid-connect/token";
+  tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
   registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
   clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
   accessToken = "";
@@ -83,7 +83,7 @@ export class RegisterVolunteerComponent implements OnInit {
 
     let body = new URLSearchParams();
     body.set("client_id", "admin-cli");
-    body.set("client_secret", "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk");
+    body.set("client_secret", "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK");
     body.set("grant_type", "client_credentials");
 
     let header = new HttpHeaders({

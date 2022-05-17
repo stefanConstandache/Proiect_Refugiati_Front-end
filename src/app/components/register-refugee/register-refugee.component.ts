@@ -25,9 +25,9 @@ export function passwordMatchValidator(): ValidatorFn {
 })
 export class RegisterRefugeeComponent implements OnInit {
 
-  tokenUrl = "http://localhost:8180/auth/realms/master/protocol/openid-connect/token";
+  tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
   registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
-  clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
+  clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
   accessToken = "";
 
   signUpForm = new FormGroup({
