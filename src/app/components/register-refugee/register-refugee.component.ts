@@ -28,6 +28,16 @@ export function passwordMatchValidator(): ValidatorFn {
 })
 export class RegisterRefugeeComponent implements OnInit {
 
+  // tokenUrl = "http://localhost:8180/auth/realms/master/protocol/openid-connect/token";
+  // registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
+  // clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
+
+  tokenUrl = "http://idp_keycloak:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+  registerUrl = "http://idp_keycloak:8080/auth/admin/realms/PwebKeycloak/users"
+  // clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
+  clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
+
+  accessToken = "";
   refugee: Refugee = new Refugee();
 
   signUpForm = new FormGroup({
