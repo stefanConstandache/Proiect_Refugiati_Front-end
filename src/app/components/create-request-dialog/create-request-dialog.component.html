@@ -1,0 +1,42 @@
+<form [formGroup]="requestForm" class="normal-form" (ngSubmit)="submit()">
+    <h1 style="background-color: white; color: black; font-size: x-large; text-align: center;">
+        Request Info
+    </h1>
+    <div class="controles-container align-items-center">
+        <div class="row">
+            <mat-form-field style="margin-top: 50px; min-width: 90%;">
+                <mat-label>Request Type</mat-label>
+                <mat-select formControlName="requestType">
+                    <mat-option value="Supplies">Supplies</mat-option>
+                    <mat-option value="Location">Location</mat-option>
+                    <mat-option value="Job">Job</mat-option>
+                    <mat-option value="Education">Education</mat-option>
+                    <mat-option value="Free Tranport">Free Tranport</mat-option>
+                </mat-select>
+                <mat-error *ngIf="requestType?.errors?.['required']">
+                    Request Type is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="mt-5">
+                <mat-label>Notes for the volunteers</mat-label>
+                <div class="textarea-wrapper">
+                    <textarea pInputTextArea maxlength="1000" (ngModelChange)="valueChange()" style="min-width: 90%; height: 160px; resize: none;" formControlName="userNotes" matInput placeholder="What is your request for"></textarea>
+                    <span class="remaning">{{remainingText}}/1000</span>
+                </div>
+                <mat-error *ngIf="userNotes?.errors?.['required']">
+                    Notes are required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="center margin-top" style="justify-content: space-evenly;">
+        <button mat-raised-button color="primary" type="submit" >
+            Submit
+        </button>
+        <button mat-raised-button color="warn" (click)="clear()" type="reset">
+            Clear
+        </button>
+    </div>
+</form>

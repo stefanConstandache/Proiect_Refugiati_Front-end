@@ -2,6 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
+import { Refugee } from 'src/app/models/refugee';
+import { RefugeeService } from 'src/app/services/refugee.service';
+import { RefugeeDashboardComponent } from '../dashboards/refugee-dashboard/refugee-dashboard.component';
 
 export function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -25,10 +28,7 @@ export function passwordMatchValidator(): ValidatorFn {
 })
 export class RegisterRefugeeComponent implements OnInit {
 
-  tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
-  registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
-  clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
-  accessToken = "";
+  refugee: Refugee = new Refugee();
 
   signUpForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -40,9 +40,21 @@ export class RegisterRefugeeComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required),
   }, { validators: passwordMatchValidator })
 
-  constructor(private http: HttpClient) { }
+  constructor(private refugeeService: RefugeeService) { }
 
   ngOnInit(): void {
+  }
+
+  initializeFormGroup() {
+    this.signUpForm.setValue({
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      confirmPassword: '',
+    });
   }
 
   get username() {
@@ -80,50 +92,15 @@ export class RegisterRefugeeComponent implements OnInit {
 
     const { username, firstName, lastName, email, phoneNumber, password } = this.signUpForm.value;
 
-    let body = new URLSearchParams();
-    body.set("client_id", "admin-cli");
-    body.set("client_secret", "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk");
-    body.set("grant_type", "client_credentials");
+    this.refugee = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      telephone: phoneNumber
+    }
 
-    let header = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    });
-    let options = { headers: header };
-
-    let userData = {
-      "enabled": "true",
-      "username": username,
-      "email": email,
-      "firstName": firstName,
-      "lastName": lastName,
-      "credentials": [
-        {
-          "type": "password",
-          "value": password,
-          "temporary": "false"
-        }
-      ],
-      "groups": [
-        "refugees"
-      ]
-    };
-
-    await lastValueFrom(this.http.post(this.tokenUrl, body, options)).then((res: any) => {
-      this.accessToken = res.access_token;
-
-    }).then(() => {
-      let registerHeader = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.accessToken
-      });
-
-      let registerOptions = { headers: registerHeader };
-      lastValueFrom(this.http.post(this.registerUrl, userData, registerOptions)).then(() => {
-        location.reload();
-      }).catch((err: any) => {
-        console.log(err.error.errorMessage);
-      });
-    });
+    this.refugeeService.createRefugee(username, password, this.refugee);
+    this.initializeFormGroup();
   }
 
 }

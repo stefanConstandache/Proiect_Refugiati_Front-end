@@ -9,7 +9,7 @@ export class RefugeeDashboardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }

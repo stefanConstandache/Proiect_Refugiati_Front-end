@@ -1,0 +1,18 @@
+form.normal-form {
+    margin: 10px;
+}
+
+.controles-container {
+    width: 100%;
+    padding: 10px;
+}
+
+.textarea-wrapper {
+    position: relative;
+}
+
+.remaning {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

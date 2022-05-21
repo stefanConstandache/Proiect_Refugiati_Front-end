@@ -2,6 +2,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { lastValueFrom, } from 'rxjs';
+import { Volunteer } from 'src/app/models/volunteer';
+import { VolunteerService } from 'src/app/services/volunteer.service';
 
 export function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -26,10 +28,7 @@ export function passwordMatchValidator(): ValidatorFn {
 
 export class RegisterVolunteerComponent implements OnInit {
 
-  tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
-  registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
-  clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
-  accessToken = "";
+  volunteer: Volunteer = new Volunteer();
 
   signUpForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -41,9 +40,21 @@ export class RegisterVolunteerComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required),
   }, { validators: passwordMatchValidator })
 
-  constructor(private http: HttpClient) { }
+  constructor(private volunteerService: VolunteerService) { }
 
   ngOnInit(): void {
+  }
+
+  initializeFormGroup() {
+    this.signUpForm.setValue({
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      confirmPassword: '',
+    });
   }
 
   get username() {
@@ -81,49 +92,16 @@ export class RegisterVolunteerComponent implements OnInit {
 
     const { username, firstName, lastName, email, phoneNumber, password } = this.signUpForm.value;
 
-    let body = new URLSearchParams();
-    body.set("client_id", "admin-cli");
-    body.set("client_secret", "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK");
-    body.set("grant_type", "client_credentials");
+    this.volunteer = {
+      username: username,
+      password: password,
+      email: email,
+      telephone: phoneNumber,
+      firstName: firstName,
+      lastName: lastName
+    }
 
-    let header = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    });
-    let options = { headers: header };
-
-    let userData = {
-      "enabled": "true",
-      "username": username,
-      "email": email,
-      "firstName": firstName,
-      "lastName": lastName,
-      "credentials": [
-        {
-          "type": "password",
-          "value": password,
-          "temporary": "false"
-        }
-      ],
-      "groups": [
-        "volunteers"
-      ]
-    };
-
-    await lastValueFrom(this.http.post(this.tokenUrl, body, options)).then((res: any) => {
-      this.accessToken = res.access_token;
-
-    }).then(() => {
-      let registerHeader = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.accessToken
-      });
-
-      let registerOptions = { headers: registerHeader };
-      lastValueFrom(this.http.post(this.registerUrl, userData, registerOptions)).then(() => {
-        location.reload();
-      }).catch((err: any) => {
-        console.log(err.error.errorMessage);
-      });
-    });
+    this.volunteerService.createVolunteer(this.volunteer);
+    this.initializeFormGroup();
   }
 }

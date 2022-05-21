@@ -5,9 +5,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { initializer } from 'src/utils/app-init';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 // Services
 import { NewsapiserviceService } from './services/newsapiservice.service'
+import { RefugeeService } from './services/refugee.service';
+import { RequestService } from './services/request.service';
+import { VolunteerService } from './services/volunteer.service';
 
 // Keycloak import
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -24,6 +28,9 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
 
 // Components import
 import { AppComponent } from './app.component';
@@ -38,6 +45,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { StatusComponent } from './components/status/status.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { NewsComponent } from './components/news/news.component';
+import { CreateRequestDialogComponent } from './components/create-request-dialog/create-request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +61,7 @@ import { NewsComponent } from './components/news/news.component';
     StatusComponent,
     RequestsComponent,
     NewsComponent,
+    CreateRequestDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +84,11 @@ import { NewsComponent } from './components/news/news.component';
     MatSortModule,
     MatGridListModule,
     MatIconModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatNativeDateModule,
+
+    HotToastModule.forRoot(),
   ],
   providers: [
     {
@@ -84,6 +98,9 @@ import { NewsComponent } from './components/news/news.component';
       multi: true,
     },
     NewsapiserviceService,
+    RefugeeService,
+    VolunteerService,
+    RequestService,
   ],
   bootstrap: [AppComponent]
 })

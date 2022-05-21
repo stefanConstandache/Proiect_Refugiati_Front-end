@@ -2,6 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { RequestService } from 'src/app/services/request.service';
+import { Request } from 'src/app/models/request';
+import { KeycloakProfile } from 'keycloak-js';
+import { VolunteerService } from 'src/app/services/volunteer.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-requests',
@@ -16,30 +21,33 @@ export class RequestsComponent implements OnInit {
   requestsList: MatTableDataSource<any>;
   displayedColumns: string[] = [];
   searchKey: string = "";
+  volunteerData: KeycloakProfile | undefined;
 
-  constructor() {
+  constructor(private requestService: RequestService, private volunteerService: VolunteerService, private toast: HotToastService) {
     this.requestsList = new MatTableDataSource();
   }
 
   ngOnInit(): void {
+    this.volunteerService.userData.subscribe((userData: KeycloakProfile) => {
+      this.volunteerData = userData;
+    });
 
     this.displayedColumns = [
       "actions",
       "requestStatus",
       "requestType",
       "userNotes",
-      "name",
-      "telephone",
       "email",
       "createdOn",
       "acceptedBy",
     ];
 
-    //this.requests = data;
-
-    this.requestsList = new MatTableDataSource(this.requests);
-    this.requestsList.sort = this.sort;
-    this.requestsList.paginator = this.paginator;
+    this.requestService.getAllRequests().subscribe((data: any) => {
+      this.requests = data;
+      this.requestsList = new MatTableDataSource(this.requests);
+      this.requestsList.sort = this.sort;
+      this.requestsList.paginator = this.paginator;
+    });
   }
 
   onSearchClear() {
@@ -51,21 +59,57 @@ export class RequestsComponent implements OnInit {
     this.requestsList.filter = this.searchKey.trim().toLowerCase();
   }
 
-  // To implement, in a service component,
-  // what happens when you press the action buttons
-  //TO DO:
-  // onRequestAccepted() {
+  onRequestAccepted(request: Request) {
+    if (confirm("Are you sure you want to accept the request?")) {
+      request.requestStatus = "Accepted"
+      request.acceptedBy = `${this.volunteerData?.email}`;
+      this.requestService.acceptRequest(request);
+    }
+  }
 
-  // }
+  onRequestRejected(request: Request) {
+    if (confirm("Are you sure you want to reject the request?")) {
+      request.requestStatus = "Rejected";
+      request.acceptedBy = "No one";
+      this.requestService.rejectRequest(request);
+    }
+  }
 
-  //TO DO:
-  // onRequestRejected() {
+  onRequestCompleted(request: Request) {
+    if (confirm("Are you sure you want to complete the request?")) {
+      request.requestStatus = "Completed";
+      this.requestService.completeRequest(request);
+    }
+  }
 
-  // }
+  seeUserNotes(element: Request) {
+    this.toast.show(
+      element.userNotes,
+      {
+        autoClose: false,
+        dismissible: true
+      }
+    );
+  }
 
-  //TO DO:
-  // onRequestCompleted() {
+  seeAcceptedBy(element: Request) {
+    this.toast.show(
+      element.acceptedBy,
+      {
+        autoClose: false,
+        dismissible: true
+      }
+    );
+  }
 
-  // }
+  seeRefugeeEmail(element: Request) {
+    this.toast.show(
+      element.refugeeEmail,
+      {
+        autoClose: false,
+        dismissible: true
+      }
+    );
+  }
 
 }

@@ -1,1 +1,72 @@
-<p>status works!</p>
+<div class="container-fluid mt-3" style="width: 90%;">
+    <h1 style="text-align: center; font-weight: bolder;">My Requests Status</h1>
+    <div class="search-div">
+        <button mat-raised-button (click)="onCreate()">
+            <mat-icon>add</mat-icon> Create Request
+        </button>
+        <mat-form-field class="search-form-field" floatLabel="never">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="myRequestsList" matSort>
+            <ng-container matColumnDef="requestStatus">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Request Status</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p *ngIf="element.requestStatus == 'Pending...'" class="text-warning">
+                        {{element.requestStatus}}
+                    </p>
+                    <p *ngIf="element.requestStatus == 'Accepted'" class="text-success">
+                        {{element.requestStatus}}
+                    </p>
+                    <p *ngIf="element.requestStatus == 'Rejected'" class="text-danger">
+                        {{element.requestStatus}}
+                    </p>
+                    <p *ngIf="element.requestStatus == 'Completed'" class="text-info">
+                        {{element.requestStatus}}
+                    </p>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requestType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.requestType}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="userNotes">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Notes</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button class="btn btn-light m-2" (click)="seeUserNotes(element)">
+                        {{element.userNotes}}
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdOn" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Created on</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.createdOn | date: "MMM d yyyy"}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="acceptedBy">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Accepted by</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element.acceptedBy}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    Loading data...
+                </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    No data
+                </mat-footer-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':myRequestsList!=null}"></mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(myRequestsList!=null && myRequestsList.data.length==0)}"></mat-footer-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
