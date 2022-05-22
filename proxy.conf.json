@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://localhost:8888/",
+        "target": "http://idp_spring_boot_api:8888/",
         "secure": false
     }
 }

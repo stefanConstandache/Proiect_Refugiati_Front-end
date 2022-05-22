@@ -18,7 +18,8 @@ export class RefugeeService {
   }
 
   getRefugee(email: string): Observable<Refugee> {
-    const apiUrl = "http://localhost:8888/api/getRefugee";
+    // const apiUrl = "http://localhost:8888/api/getRefugee";
+    const apiUrl = "http://idp_spring_boot_api:8888/api/getRefugee";
 
     return this.http.get<Refugee>(`${apiUrl}/${email}`);
   }
@@ -30,10 +31,16 @@ export class RefugeeService {
   }
 
   async createRefugee(username: string, password: string, refugee: Refugee) {
-    const tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
-    const registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users";
-    const clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
-    const apiUrl = "http://localhost:8888/api/createRefugee";
+    // const tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+    // const registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users";
+    // const apiUrl = "http://localhost:8888/api/createRefugee";
+
+    const tokenUrl = "http://idp_keycloak:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+    const registerUrl = "http://idp_keycloak:8080/auth/admin/realms/PwebKeycloak/users";
+    const apiUrl = "http://idp_spring_boot_api:8888/api/createRefugee";
+
+    // const clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
+    const clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
 
     let body = new URLSearchParams();
     body.set("client_id", "admin-cli");
@@ -80,7 +87,8 @@ export class RefugeeService {
   }
 
   async updateRefugee(refugee: Refugee) {
-    const apiUrl = "http://localhost:8888/api/updateRefugee";
+    // const apiUrl = "http://localhost:8888/api/updateRefugee";
+    const apiUrl = "http://idp_spring_boot_api:8888/api/updateRefugee";
 
     this.http.put(apiUrl, refugee).subscribe();
     this.toast.success("Profile updated successfully");

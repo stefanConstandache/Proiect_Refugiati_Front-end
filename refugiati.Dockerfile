@@ -14,7 +14,9 @@ RUN npm install -g @angular/cli #added
 
 #RUN npm run build --prod
 RUN npm run build --prod
+
 #CMD npm run dev
 CMD npm start
+#CMD ng serve --host 0.0.0.0 --proxy-config proxy.conf.json --configuration=production
 #CMD ng serve
 

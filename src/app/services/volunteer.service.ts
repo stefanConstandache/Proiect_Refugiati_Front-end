@@ -23,9 +23,14 @@ export class VolunteerService {
 
   async createVolunteer(volunteer: Volunteer) {
 
-    const tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
-    const registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
-    const clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
+    // const tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+    // const registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
+
+    const tokenUrl = "http://idp_keycloak:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+    const registerUrl = "http://idp_keycloak:8080/auth/admin/realms/PwebKeycloak/users"
+
+    // const clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
+    const clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
 
     let body = new URLSearchParams();
     body.set("client_id", "admin-cli");

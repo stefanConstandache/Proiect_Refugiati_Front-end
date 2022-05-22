@@ -26,7 +26,6 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
                         //      </body>
                         // </html>
 
-                        // TODO: cerceteaza si aici
                         onLoad: 'login-required',
                         checkLoginIframe: true,
                     },

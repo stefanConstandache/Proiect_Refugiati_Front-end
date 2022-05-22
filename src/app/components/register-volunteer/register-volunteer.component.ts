@@ -31,10 +31,13 @@ export class RegisterVolunteerComponent implements OnInit {
   // tokenUrl = "http://localhost:8180/auth/realms/master/protocol/openid-connect/token";
   // tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
   // registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
+
   tokenUrl = "http://idp_keycloak:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
   registerUrl = "http://idp_keycloak:8080/auth/admin/realms/PwebKeycloak/users"
+
   // clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
   clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
+
   accessToken = "";
   volunteer: Volunteer = new Volunteer();
 
