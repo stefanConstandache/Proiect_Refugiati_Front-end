@@ -21,6 +21,7 @@ export class AuthGuard extends KeycloakAuthGuard {
     ) {
         // Force the user to log in if currently unauthenticated.
         if (!this.authenticated) {
+            // TODO: Aici ceva loging
             await this.keycloak.login();
         }
 

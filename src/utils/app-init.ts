@@ -13,6 +13,20 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
                     },
                     loadUserProfileAtStartUp: true,
                     initOptions: {
+                        //   This is an action we specified on keycloak load
+                        //   We have two options : 'login-required'|'check-sso'
+                        //   If is set to 'login-required' this means your browser will do a full redirect to the Keycloak server and back to your application.
+                        //   If is set to  'check-sso'  instead this action will be performed in a hidden iframe, so your application resources only need to be loaded and parsed once by the browser.
+                        //   Then you will need to add the silentCheckSsoRedirectUri and create a html file   silent-check-sso.html with this content
+                        // <html>
+                        //    <body>
+                        //         <script>
+                        //           parent.postMessage(location.href, location.origin);
+                        //         </script>
+                        //      </body>
+                        // </html>
+
+                        // TODO: cerceteaza si aici
                         onLoad: 'login-required',
                         checkLoginIframe: true,
                     },
