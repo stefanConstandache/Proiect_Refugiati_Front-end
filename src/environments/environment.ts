@@ -9,6 +9,7 @@ export const environment = {
     // Url of the Identity Provider
     // issuer: 'http://localhost:8180/auth/',
     // issuer: 'http://idp_keycloak:8080/auth/',
+    // issuer: 'http://localhost:8080/auth/',
     issuer: 'http://localhost:8080/auth/',
     // Realm
     realm: 'PwebKeycloak',

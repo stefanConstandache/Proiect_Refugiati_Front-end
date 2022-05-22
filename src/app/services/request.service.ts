@@ -13,7 +13,8 @@ export class RequestService {
 
   createRequest(request: Request) {
     // const apiUrl = "http://localhost:8888/api/createRequest";
-    const apiUrl = "http://idp_spring_boot_api:8888/api/createRequest";
+    // const apiUrl = "http://idp_spring_boot_api:8888/api/createRequest";
+    const apiUrl = "http://localhost:8888/api/createRequest";
 
     this.http.post(apiUrl, request).subscribe();
     this.toast.success("Request created successfully");
@@ -21,7 +22,8 @@ export class RequestService {
 
   acceptRequest(request: Request) {
     // const apiUrl = "http://localhost:8888/api/acceptRequest";
-    const apiUrl = "http://idp_spring_boot_api:8888/api/acceptRequest";
+    // const apiUrl = "http://idp_spring_boot_api:8888/api/acceptRequest";
+    const apiUrl = "http://localhost:8888/api/acceptRequest";
 
     this.http.put(apiUrl, request).subscribe();
     this.toast.success("Request accepted successfully");
@@ -29,7 +31,8 @@ export class RequestService {
 
   rejectRequest(request: Request, message: String) {
     // const apiUrl = "http://localhost:8888/api/rejectRequest";
-    const apiUrl = "http://idp_spring_boot_api:8888/api/rejectRequest";
+    // const apiUrl = "http://idp_spring_boot_api:8888/api/rejectRequest";
+    const apiUrl = "http://localhost:8888/api/rejectRequest";
 
     this.http.put(`${apiUrl}/${message}`, request).subscribe();
     this.toast.success("Request rejected successfully");
@@ -37,7 +40,8 @@ export class RequestService {
 
   completeRequest(request: Request, feedback: String) {
     // const apiUrl = "http://localhost:8888/api/completeRequest";
-    const apiUrl = "http://idp_spring_boot_api:8888/api/completeRequest";
+    // const apiUrl = "http://idp_spring_boot_api:8888/api/completeRequest";
+    const apiUrl = "http://localhost:8888/api/completeRequest";
 
     this.http.put(`${apiUrl}/${feedback}`, request).subscribe();
     this.toast.success("Request completed successfully");
@@ -45,14 +49,16 @@ export class RequestService {
 
   getAllRequests(): Observable<Request[]> {
     // const apiUrl = "http://localhost:8888/api/getAllRequests";
-    const apiUrl = "http://idp_spring_boot_api:8888/api/getAllRequests";
+    // const apiUrl = "http://idp_spring_boot_api:8888/api/getAllRequests";
+    const apiUrl = "http://localhost:8888/api/getAllRequests";
 
     return this.http.get<Request[]>(apiUrl);
   }
 
   getRequestsForUser(email: string): Observable<Request[]> {
     // const apiUrl = "http://localhost:8888/api/getRequestsForUser";
-    const apiUrl = "http://idp_spring_boot_api:8888/api/getRequestsForUser";
+    // const apiUrl = "http://idp_spring_boot_api:8888/api/getRequestsForUser";
+    const apiUrl = "http://localhost:8888/api/getRequestsForUser";
 
     return this.http.get<Request[]>(`${apiUrl}/${email}`);
   }

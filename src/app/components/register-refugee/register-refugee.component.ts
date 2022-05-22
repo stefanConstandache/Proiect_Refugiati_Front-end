@@ -32,8 +32,11 @@ export class RegisterRefugeeComponent implements OnInit {
   // registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users"
   // clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
 
-  tokenUrl = "http://idp_keycloak:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
-  registerUrl = "http://idp_keycloak:8080/auth/admin/realms/PwebKeycloak/users"
+  // tokenUrl = "http://idp_keycloak:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+  // registerUrl = "http://idp_keycloak:8080/auth/admin/realms/PwebKeycloak/users"
+
+  tokenUrl = "http://localhost:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+  registerUrl = "http://localhost:8080/auth/admin/realms/PwebKeycloak/users"
   // clientSecret = "lj27GSPyDPvTeR8N6BhCT96dKKuxtOBk";
   clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
 
