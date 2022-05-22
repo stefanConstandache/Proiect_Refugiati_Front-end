@@ -30,10 +30,13 @@ export class RefugeeService {
   }
 
   async createRefugee(username: string, password: string, refugee: Refugee) {
-    const tokenUrl = "http://localhost:8180/auth/realms/PwebKeycloak/protocol/openid-connect/token";
-    const registerUrl = "http://localhost:8180/auth/admin/realms/PwebKeycloak/users";
-    const clientSecret = "kYIs5uTPAk3HDDCmXI4mpeBE1j2DuROK";
+    const tokenUrl = "http://localhost:8080/auth/realms/PwebKeycloak/protocol/openid-connect/token";
+    const registerUrl = "http://localhost:8080/auth/admin/realms/PwebKeycloak/users";
+    // const clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
     const apiUrl = "http://localhost:8888/api/createRefugee";
+
+    // const clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
+    const clientSecret = "EUR4oE8Oji2incmeqVWwsEqaVGLQLJoJ";
 
     let body = new URLSearchParams();
     body.set("client_id", "admin-cli");
