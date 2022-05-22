@@ -27,19 +27,19 @@ export class RequestService {
     this.toast.success("Request accepted successfully");
   }
 
-  rejectRequest(request: Request) {
+  rejectRequest(request: Request, message: String) {
     // const apiUrl = "http://localhost:8888/api/rejectRequest";
     const apiUrl = "http://idp_spring_boot_api:8888/api/rejectRequest";
 
-    this.http.put(apiUrl, request).subscribe();
+    this.http.put(`${apiUrl}/${message}`, request).subscribe();
     this.toast.success("Request rejected successfully");
   }
 
-  completeRequest(request: Request) {
+  completeRequest(request: Request, feedback: String) {
     // const apiUrl = "http://localhost:8888/api/completeRequest";
     const apiUrl = "http://idp_spring_boot_api:8888/api/completeRequest";
 
-    this.http.put(apiUrl, request).subscribe();
+    this.http.put(`${apiUrl}/${feedback}`, request).subscribe();
     this.toast.success("Request completed successfully");
   }
 

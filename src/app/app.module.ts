@@ -46,6 +46,7 @@ import { StatusComponent } from './components/status/status.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { NewsComponent } from './components/news/news.component';
 import { CreateRequestDialogComponent } from './components/create-request-dialog/create-request-dialog.component';
+import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { CreateRequestDialogComponent } from './components/create-request-dialog
     RequestsComponent,
     NewsComponent,
     CreateRequestDialogComponent,
+    FeedbackDialogComponent,
   ],
   imports: [
     BrowserModule,

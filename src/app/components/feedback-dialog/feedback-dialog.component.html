@@ -1,0 +1,26 @@
+<form [formGroup]="feedbackForm" class="normal-form" (ngSubmit)="submit()">
+    <h1 style="background-color: white; color: black; font-size: x-large; text-align: center;">
+        Feedback
+    </h1>
+    <div class="controles-container align-items-center">
+        <div class="row">
+            <mat-form-field class="mt-2">
+                <mat-label>Feedback for request</mat-label>
+                <div class="textarea-wrapper">
+                    <textarea pInputTextArea  style="min-width: 90%; height: 160px; resize: none;" formControlName="feedback" matInput placeholder="Give the user your feedback"></textarea>
+                </div>
+                <mat-error *ngIf="feedback?.errors?.['required']">
+                    Feedback is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="center margin-top" style="justify-content: space-evenly;">
+        <button mat-raised-button color="primary" type="submit" >
+            Submit
+        </button>
+        <button mat-raised-button color="warn" (click)="clear()" type="reset">
+            Clear
+        </button>
+    </div>
+</form>

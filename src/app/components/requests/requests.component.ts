@@ -7,6 +7,8 @@ import { Request } from 'src/app/models/request';
 import { KeycloakProfile } from 'keycloak-js';
 import { VolunteerService } from 'src/app/services/volunteer.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FeedbackDialogComponent } from '../feedback-dialog/feedback-dialog.component';
 
 @Component({
   selector: 'app-requests',
@@ -23,7 +25,7 @@ export class RequestsComponent implements OnInit {
   searchKey: string = "";
   volunteerData: KeycloakProfile | undefined;
 
-  constructor(private requestService: RequestService, private volunteerService: VolunteerService, private toast: HotToastService) {
+  constructor(private requestService: RequestService, private volunteerService: VolunteerService, private toast: HotToastService, private dialog: MatDialog) {
     this.requestsList = new MatTableDataSource();
   }
 
@@ -59,27 +61,35 @@ export class RequestsComponent implements OnInit {
     this.requestsList.filter = this.searchKey.trim().toLowerCase();
   }
 
+  onFeedback(request: Request, type: String) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "510px";
+    dialogConfig.data = {
+      request: request,
+      type: type
+    }
+
+    this.dialog.open(FeedbackDialogComponent, dialogConfig);
+  }
+
   onRequestAccepted(request: Request) {
     if (confirm("Are you sure you want to accept the request?")) {
       request.requestStatus = "Accepted"
       request.acceptedBy = `${this.volunteerData?.email}`;
+
       this.requestService.acceptRequest(request);
     }
+
   }
 
   onRequestRejected(request: Request) {
-    if (confirm("Are you sure you want to reject the request?")) {
-      request.requestStatus = "Rejected";
-      request.acceptedBy = "No one";
-      this.requestService.rejectRequest(request);
-    }
+    this.onFeedback(request, "Rejected");
   }
 
   onRequestCompleted(request: Request) {
-    if (confirm("Are you sure you want to complete the request?")) {
-      request.requestStatus = "Completed";
-      this.requestService.completeRequest(request);
-    }
+    this.onFeedback(request, "Completed");
   }
 
   seeUserNotes(element: Request) {

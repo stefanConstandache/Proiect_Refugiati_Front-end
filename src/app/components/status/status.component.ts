@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { RequestService } from 'src/app/services/request.service';
 import { CreateRequestDialogComponent } from '../create-request-dialog/create-request-dialog.component';
-import { RefugeeDashboardComponent } from '../dashboards/refugee-dashboard/refugee-dashboard.component';
 import { RefugeeService } from 'src/app/services/refugee.service';
 import { Request } from 'src/app/models/request';
 import { HotToastService } from '@ngneat/hot-toast';
